@@ -37,6 +37,10 @@ public class GrapplingHook : MonoBehaviour {
     }
 
     void Update() {
+        if (GameManager.instance.player.GetComponent<Player>().isEnemyControll) {
+            return;
+        }
+
         line.SetPosition(0, transform.position);
         line.SetPosition(1, hook.position);
 
@@ -151,6 +155,7 @@ public class GrapplingHook : MonoBehaviour {
     private void OnCollisionExit2D( Collision2D collision ) {
         if (collision.gameObject.CompareTag("Ground") && isAttach) {
             hook.GetComponent<Hooking>().distanceJoint2D.enabled = true;
+            hook.GetComponent<Hooking>().distanceJoint2D.distance = hook.GetComponent<Hooking>().joint2D.distance;
             hook.GetComponent<Hooking>().distanceJoint2D.distance = hook.GetComponent<Hooking>().distanceJoint2D.distance;
             isGround = false;
         }

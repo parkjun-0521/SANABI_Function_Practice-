@@ -6,6 +6,8 @@ using static GameKeyboard;
 
 public class Player : MonoBehaviour
 {
+    public int health;
+
     public float speed;                 // 플레이어 이동속도 
     public float maxSpeed;              // 플레이어 최대 가속도 
 
@@ -25,6 +27,9 @@ public class Player : MonoBehaviour
     public LayerMask wall_Layer;        // 벽을 탈 Layer 확인    
     bool isWall;                        // 벽을 타는 상태인가 
 
+    public bool isEnemyControll = false;
+    public int collierEnemyId;
+
     // 스크립트
     GrapplingHook grappling;
     AfterImage afterImage;
@@ -32,7 +37,10 @@ public class Player : MonoBehaviour
 
     // 컴포넌트
     public Rigidbody2D rigid;
-    SpriteRenderer spriteRenderer;
+    public CircleCollider2D circleCollider;
+    public SpriteRenderer spriteRenderer;
+
+    Camera mainCamera;
 
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
@@ -41,6 +49,12 @@ public class Player : MonoBehaviour
 
         grappling = GetComponent<GrapplingHook>();
         afterImage = GetComponent<AfterImage>();
+
+        mainCamera = Camera.main;
+    }
+
+    void Start() {
+        health = 4;
     }
 
     void Update()
@@ -143,8 +157,10 @@ public class Player : MonoBehaviour
                     wallCheck.transform.localPosition = new Vector2(-0.3f, 0f);
                 }
 
-                if (grappling.hook.GetComponent<Hooking>().joint2D.distance <= grappling.maxDistance)
+                if (grappling.hook.GetComponent<Hooking>().joint2D.distance <= grappling.maxDistance) {
                     grappling.hook.GetComponent<Hooking>().joint2D.distance += 0.005f;
+                    grappling.hook.GetComponent<Hooking>().distanceJoint2D.distance = grappling.hook.GetComponent<Hooking>().joint2D.distance;
+                }
             }
             else if (!Input.GetKey(Keyboard.GetKeyCode(KeyCodeTypes.UpMove)) && 
                      !Input.GetKey(Keyboard.GetKeyCode(KeyCodeTypes.RightMove)) &&
@@ -248,9 +264,9 @@ public class Player : MonoBehaviour
     void PlayerAttack() {
         if (isAttack) {
             afterImage.particle.gameObject.SetActive(true);
+            circleCollider.enabled = true;
 
-            Vector3 dirPos = transform.position - grappling.hook.position;
-            rigid.AddForce(dirPos.normalized * 10 * Time.deltaTime, ForceMode2D.Force);
+            transform.position = grappling.hook.transform.position;
 
             float dir = transform.position.x - grappling.hook.gameObject.transform.position.x;
             if (dir < 0) {
@@ -265,14 +281,45 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D( Collider2D collision ) {
+        if (collision.gameObject.CompareTag("Enemy") && isAttack) {
+            collierEnemyId = collision.GetComponent<PlayerOfEnemyMoveController>().id;
+        }
+    }
+
+    void OnTriggerStay2D( Collider2D collision ) {
+        if (collision.gameObject.CompareTag("Enemy") && isAttack) {
+            isEnemyControll = true;         
+            if (Input.GetKey(Keyboard.GetKeyCode(KeyCodeTypes.Attack))) {
+                grappling.hook.SetParent(grappling.hook.gameObject.GetComponent<Hooking>().originalParent);
+                grappling.hook.gameObject.GetComponent<Hooking>().hookedObject = null;
+
+                Vector3 playerPosition = transform.position;
+                Vector3 mouseScreenPosition = Input.mousePosition;
+                Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, mainCamera.nearClipPlane));
+
+                // 플레이어 위치에서 마우스 위치로의 방향 벡터 계산
+                Vector3 directionToMouse = mouseWorldPosition - playerPosition;
+
+                // 반대 방향 계산
+                Vector3 oppositeDirection = -directionToMouse.normalized;
+
+                // 일정 속도로 날아가게 설정 (예: 10 유닛/초)
+                float flySpeed = 40f;
+                rigid.velocity = oppositeDirection * flySpeed;
+
+                isAttack = false;
+                isEnemyControll = false;
+                collision.gameObject.SetActive(false);
+                circleCollider.enabled = false;
+            }
+        }
+    }
+
     void OnCollisionEnter2D( Collision2D collision ) {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Ring")) {
             jumpCount = 0;
             isJumpCheck = false;
-        }
-        if (collision.gameObject.CompareTag("Enemy") && isAttack) {
-            isAttack = false;
-            collision.gameObject.SetActive(false);
         }
     }
 }

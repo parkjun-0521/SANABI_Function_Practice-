@@ -14,6 +14,7 @@ public class GameKeyboard : MonoBehaviour
         DownMove,
         Jump,
         Hook,
+        Attack,
         HookAcceleration
     }
 
@@ -30,6 +31,7 @@ public class GameKeyboard : MonoBehaviour
         keyMappings[KeyCodeTypes.DownMove] = KeyCode.S;
         keyMappings[KeyCodeTypes.Jump] = KeyCode.Space;
         keyMappings[KeyCodeTypes.Hook] = KeyCode.Mouse0;
+        keyMappings[KeyCodeTypes.Attack] = KeyCode.Mouse1;
         keyMappings[KeyCodeTypes.HookAcceleration] = KeyCode.LeftShift;        
     }
 
