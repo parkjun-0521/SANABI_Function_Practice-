@@ -4,6 +4,12 @@ using UnityEngine;
 
 
 public class MouseLineDrawer : MonoBehaviour {
+    public float lineSpeed;
+    public float lineEnemySpeed;
+
+    public float lineMaxDistance;
+    public float lineEnemyMaxDistance;
+
     public LineRenderer lineRenderer;
     public LayerMask collisionMask; // 충돌을 감지할 레이어 설정
     public Material lineMaterial;
@@ -56,11 +62,13 @@ public class MouseLineDrawer : MonoBehaviour {
             // 충돌한 오브젝트에 따라 색을 변경 
             if (hit.collider.gameObject.layer.Equals(11)) {
                 lineMaterial.SetColor("_Color", enemyColor);
-                grappling.speed = 50;
+                grappling.speed = lineEnemySpeed;
+                grappling.maxDistance = lineEnemyMaxDistance;
             }
             else {
                 lineMaterial.SetColor("_Color", ringColor);
-                grappling.speed = 30;
+                grappling.speed = lineSpeed;
+                grappling.maxDistance = lineMaxDistance;
             }
         }
         else {
@@ -68,7 +76,8 @@ public class MouseLineDrawer : MonoBehaviour {
             lineRenderer.SetPosition(0, startPoint);
             lineRenderer.SetPosition(1, mousePosition);
             lineMaterial.SetColor("_Color", ringColor);
-            grappling.speed = 30;
+            grappling.speed = lineSpeed;
+            grappling.maxDistance = lineMaxDistance;
         }
     }
 }

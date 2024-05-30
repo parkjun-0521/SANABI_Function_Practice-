@@ -22,14 +22,14 @@ public class PlayerOfEnemyMoveController : MonoBehaviour
                 transform.position += Vector3.left * playerLogic.speed * Time.deltaTime;
                 playerLogic.spriteRenderer.flipX = true;
                 playerLogic.wallCheck.transform.localPosition = new Vector2(-0.3f, 0f);
-                playerLogic.wallCheck.gameObject.SetActive(true);
+                playerLogic.wallCheck.gameObject.SetActive(false);
             }
             else if (Input.GetKey(Keyboard.GetKeyCode(KeyCodeTypes.RightMove))) {
                 Player playerLogic = GameManager.instance.player.GetComponent<Player>();
                 transform.position += Vector3.right * playerLogic.speed * Time.deltaTime;
                 playerLogic.spriteRenderer.flipX = false;
                 playerLogic.wallCheck.transform.localPosition = new Vector2(0.3f, 0f);
-                playerLogic.wallCheck.gameObject.SetActive(true);
+                playerLogic.wallCheck.gameObject.SetActive(false);
             }
         }
     }
