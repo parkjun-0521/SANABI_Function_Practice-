@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public bool isJumpCheck = false;    // 점프 상태 확인 
 
+    public GameObject healthUI;
+    public GameObject[] healthBar;
 
     public bool isAttack= false;        // 공격을 하는 상태 ( 적에게 사슬 발사 시 ) 
     public bool isAcceleration = false; // 사슬을 걸고 shift를 눌러 가속도를 주는 상태
@@ -298,8 +300,21 @@ public class Player : MonoBehaviour
             }
 
             // 적 공격에 맞으면 체력 --
-            --health;
+            health -= 1;
+            healthUI.SetActive(true);
+            for (int i = 0; i < healthBar.Length; i++) {
+                healthBar[i].SetActive(false);
+            }
+            for (int i = 0; i < health; i++) {
+                healthBar[i].SetActive(true);
+            }
+            StartCoroutine(HealthUIInvisible());
         }
+    }
+
+    IEnumerator HealthUIInvisible() {
+        yield return new WaitForSeconds(2.5f);
+        healthUI.SetActive(false);
     }
 
     void OnTriggerStay2D( Collider2D collision ) {
