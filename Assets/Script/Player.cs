@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     bool isWall;                        // 벽을 타는 상태인가 
 
     public bool isEnemyControll = false;
+
     public int collierEnemyId;
 
     // 스크립트
@@ -281,39 +282,65 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D( Collider2D collision ) {
+    void OnTriggerEnter2D( Collider2D collision ) {
         if (collision.gameObject.CompareTag("Enemy") && isAttack) {
             collierEnemyId = collision.GetComponent<PlayerOfEnemyMoveController>().id;
+            isEnemyControll = true;
+            StartCoroutine(EnemyControllerChange());
+        }
+
+        if (collision.gameObject.layer.Equals(17)) {
+            if (transform.position.x - collision.transform.position.x < 0) {
+                rigid.AddForce(new Vector2(-1.5f, 1) * 2f, ForceMode2D.Impulse);
+            }
+            else {
+                rigid.AddForce(new Vector2(1.5f, 1) * 2f, ForceMode2D.Impulse);
+            }
+
+            // 적 공격에 맞으면 체력 --
+            --health;
         }
     }
 
     void OnTriggerStay2D( Collider2D collision ) {
-        if (collision.gameObject.CompareTag("Enemy") && isAttack) {
-            isEnemyControll = true;         
-            if (Input.GetKey(Keyboard.GetKeyCode(KeyCodeTypes.Attack))) {
-                grappling.hook.SetParent(grappling.hook.gameObject.GetComponent<Hooking>().originalParent);
-                grappling.hook.gameObject.GetComponent<Hooking>().hookedObject = null;
-
-                Vector3 playerPosition = transform.position;
-                Vector3 mouseScreenPosition = Input.mousePosition;
-                Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, mainCamera.nearClipPlane));
-
-                // 플레이어 위치에서 마우스 위치로의 방향 벡터 계산
-                Vector3 directionToMouse = mouseWorldPosition - playerPosition;
-
-                // 반대 방향 계산
-                Vector3 oppositeDirection = -directionToMouse.normalized;
-
-                // 일정 속도로 날아가게 설정 (예: 10 유닛/초)
-                float flySpeed = 40f;
-                rigid.velocity = oppositeDirection * flySpeed;
-
-                isAttack = false;
-                isEnemyControll = false;
+        if (collision.gameObject.CompareTag("Enemy") && isAttack) {            
+            if (Input.GetKey(Keyboard.GetKeyCode(KeyCodeTypes.Attack)) && isEnemyControll) {
+                PlayerAttackBounce();
                 collision.gameObject.SetActive(false);
-                circleCollider.enabled = false;
+            }
+            else if (!isEnemyControll) {
+                PlayerAttackBounce();
+                collision.gameObject.SetActive(false);
             }
         }
+    }
+
+    IEnumerator EnemyControllerChange() {
+        yield return new WaitForSeconds(3f);
+        isEnemyControll = false;
+    }
+
+    public void PlayerAttackBounce() {
+        grappling.hook.SetParent(grappling.hook.gameObject.GetComponent<Hooking>().originalParent);
+        grappling.hook.gameObject.GetComponent<Hooking>().hookedObject = null;
+
+        Vector3 playerPosition = transform.position;
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, mainCamera.nearClipPlane));
+
+        // 플레이어 위치에서 마우스 위치로의 방향 벡터 계산
+        Vector3 directionToMouse = mouseWorldPosition - playerPosition;
+
+        // 반대 방향 계산
+        Vector3 oppositeDirection = -directionToMouse.normalized;
+
+        // 일정 속도로 날아가게 설정 (예: 10 유닛/초)
+        float flySpeed = 30f;
+        rigid.velocity = oppositeDirection * flySpeed;
+
+        isAttack = false;
+        circleCollider.enabled = false;
+        isEnemyControll = false;
     }
 
     void OnCollisionEnter2D( Collision2D collision ) {

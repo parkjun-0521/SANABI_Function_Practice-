@@ -10,10 +10,10 @@ public class SpriteSheetCombiner : MonoBehaviour
     [MenuItem("Tools/Combine Sprites")]
     public static void CombineSprites() {
         // 스프라이트를 가져올 폴더 경로
-        string folderPath = "Assets/Image/Mari Gold";
+        string folderPath = "Assets/Image/NearEnemy";
         // 결합될 텍스처의 크기 (320x320 픽셀 스프라이트 99개를 위한 크기 설정)
-        int textureWidth = 3200; // 가로로 10개의 스프라이트 (320 * 10)
-        int textureHeight = 3200; // 세로로 10개의 스프라이트 (320 * 10, 99개의 이미지 포함 가능)
+        int textureWidth = 700 * 10; // 가로로 10개의 스프라이트 (320 * 10)
+        int textureHeight = 450 * 6; // 세로로 10개의 스프라이트 (320 * 10, 99개의 이미지 포함 가능)
 
         // 폴더에서 모든 스프라이트 로드
         string[] spritePaths = AssetDatabase.FindAssets("t:Sprite", new[] { folderPath });
@@ -51,11 +51,11 @@ public class SpriteSheetCombiner : MonoBehaviour
         Texture2D combinedTexture = new Texture2D(textureWidth, textureHeight);
 
         int xOffset = 0;
-        int yOffset = textureHeight - 320; // 초기 yOffset을 맨 위로 설정
+        int yOffset = textureHeight - 450; // 초기 yOffset을 맨 위로 설정
         //int maxHeight = 320; // 이미지 높이
 
         // 스프라이트를 왼쪽 상단에서 오른쪽 하단으로 배치
-        for (int i = 0; i < 99; i++) {
+        for (int i = 0; i < 57; i++) {
             if (i < sprites.Count) {
                 Sprite sprite = sprites[i];
                 Texture2D texture = sprite.texture;
@@ -74,10 +74,10 @@ public class SpriteSheetCombiner : MonoBehaviour
             }
 
             // 오프셋 업데이트
-            xOffset += 320;
-            if (xOffset + 320 > textureWidth) {
+            xOffset += 700;
+            if (xOffset + 700 > textureWidth) {
                 xOffset = 0;
-                yOffset -= 320; // yOffset을 감소시켜 아래로 이동
+                yOffset -= 450; // yOffset을 감소시켜 아래로 이동
             }
         }
 
@@ -86,7 +86,7 @@ public class SpriteSheetCombiner : MonoBehaviour
 
         // 결합된 텍스처 저장
         byte[] bytes = combinedTexture.EncodeToPNG();
-        string combinedTexturePath = "Assets/Mari Gold.png";
+        string combinedTexturePath = "Assets/NearEnemy.png";
         File.WriteAllBytes(combinedTexturePath, bytes);
 
         // 파일이 생성된 경로 출력

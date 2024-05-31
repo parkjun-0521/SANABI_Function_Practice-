@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.85122705, a: 1}
+  m_Color: {r: 1, g: 0.084195465, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -152,16 +152,16 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.10215366, g: 1, b: 0, a: 1}
-      key1: {r: 0.20000005, g: 1, b: 0, a: 0}
-      key2: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0, b: 0.039559364, a: 1}
+      key1: {r: 1, g: 0.49752986, b: 0.019607842, a: 0.40294117}
+      key2: {r: 1, g: 0.5874088, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
+      ctime1: 32382
       ctime2: 65535
       ctime3: 0
       ctime4: 0
@@ -178,8 +178,8 @@ TrailRenderer:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0

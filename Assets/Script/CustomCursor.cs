@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * 마우스 커서를 바꾸는 스크립트 
+ * 
+ * 원하는 이미지로 마우스 커서를 바꾸기 위해 구현 
+ * Project Settings에서는 커서의 앵커조절이 되지 않아 구현하게 되었다.
+ **/
+
 public class CustomCursor : MonoBehaviour {
     // 커서 이미지
     public Texture2D cursorTexture;
