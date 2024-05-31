@@ -73,6 +73,16 @@ public class Player : MonoBehaviour
             velocity = velocity.normalized * maxSpeed;
             rigid.velocity = velocity;
         }
+
+        if (healthUI.activeSelf) {
+            StartCoroutine(HealthUIInvisible());
+        }
+    }
+
+    IEnumerator HealthUIInvisible()
+    {
+        yield return new WaitForSeconds(2.5f);
+        healthUI.SetActive(false);
     }
 
     void PlayerMove() {
@@ -290,31 +300,6 @@ public class Player : MonoBehaviour
             isEnemyControll = true;
             StartCoroutine(EnemyControllerChange());
         }
-
-        if (collision.gameObject.layer.Equals(17)) {
-            if (transform.position.x - collision.transform.position.x < 0) {
-                rigid.AddForce(new Vector2(-1.5f, 1) * 2f, ForceMode2D.Impulse);
-            }
-            else {
-                rigid.AddForce(new Vector2(1.5f, 1) * 2f, ForceMode2D.Impulse);
-            }
-
-            // 적 공격에 맞으면 체력 --
-            health -= 1;
-            healthUI.SetActive(true);
-            for (int i = 0; i < healthBar.Length; i++) {
-                healthBar[i].SetActive(false);
-            }
-            for (int i = 0; i < health; i++) {
-                healthBar[i].SetActive(true);
-            }
-            StartCoroutine(HealthUIInvisible());
-        }
-    }
-
-    IEnumerator HealthUIInvisible() {
-        yield return new WaitForSeconds(2.5f);
-        healthUI.SetActive(false);
     }
 
     void OnTriggerStay2D( Collider2D collision ) {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -90,6 +91,14 @@ public class NearEnemy : Enemy
                 isMove = true;
                 curAttackDelay = 0;
                 boxCollider.enabled = false;
+
+                Player playerLogic = GameManager.instance.player;
+                if (transform.position.x - playerLogic.gameObject.transform.position.x > 0) {
+                    playerLogic.rigid.AddForce(new Vector2(-1.5f, 1) * 2f, ForceMode2D.Impulse);
+                }
+                else {
+                    playerLogic.rigid.AddForce(new Vector2(1.5f, 1) * 2f, ForceMode2D.Impulse);
+                }
             }
         }
 

@@ -37,6 +37,24 @@ public class EnemyBullet : MonoBehaviour {
             // 맞은 오브젝트의 tag가 Player 일 때 
             if (hit.collider.CompareTag("Player")) {
                 // 오브젝트 비활성화 
+                Player playerLogic = GameManager.instance.player;
+                playerLogic.health -= 1;
+                playerLogic.healthUI.SetActive(true);
+                for (int i = 0; i < playerLogic.healthBar.Length; i++) {
+                    playerLogic.healthBar[i].SetActive(false);
+                }
+                for (int i = 0; i < playerLogic.health; i++) {
+                    playerLogic.healthBar[i].SetActive(true);
+                }
+
+                if (transform.position.x - hit.transform.position.x > 0) {
+                    playerLogic.rigid.AddForce(new Vector2(-1.5f, 1) * 2f, ForceMode2D.Impulse);
+                }
+                else {
+                    playerLogic.rigid.AddForce(new Vector2(1.5f, 1) * 2f, ForceMode2D.Impulse);
+                }
+
+                // 총알이 맞았을 때 오브젝트 비활성화 
                 gameObject.SetActive(false);
             }
         }
