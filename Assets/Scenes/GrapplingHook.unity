@@ -1174,9 +1174,9 @@ GameObject:
   - component: {fileID: 339226790}
   - component: {fileID: 339226795}
   - component: {fileID: 339226794}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LongDistanceEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1277,7 +1277,7 @@ Transform:
   m_GameObject: {fileID: 339226789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.72, y: 0.16, z: 0}
+  m_LocalPosition: {x: 15.62, y: 1.77, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1336,11 +1336,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb31bd113df2c748a5a0d72507e0b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 15
-  maxDistance: 10
+  health: 0
+  speed: 0.1
+  curDelay: 0
+  maxDelay: 2
+  radius: 10
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
+  target: {fileID: 0}
+  circleCollider: {fileID: 0}
 --- !u!1 &342895280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 3252233937789214435, guid: 319c0b14a74191e4c895373e3d812634, type: 3}
+  - {fileID: 3252233937789214435, guid: 54d7a0c4e44b4824986a79bbd2538d00, type: 3}
 --- !u!4 &432374216
 Transform:
   m_ObjectHideFlags: 0
@@ -3394,7 +3400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 860800446}
   - component: {fileID: 860800447}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3445,12 +3451,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 15
 --- !u!1 &862734317
 GameObject:
   m_ObjectHideFlags: 0
@@ -10408,6 +10414,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1481085155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1481085156}
+  - component: {fileID: 1481085157}
+  m_Layer: 10
+  m_Name: ParryingRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1481085156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481085155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2002195002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1481085157
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481085155}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!1 &1501808142
 GameObject:
   m_ObjectHideFlags: 0
@@ -12036,6 +12109,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 548619236}
+  - {fileID: 1481085156}
   - {fileID: 2101706085}
   - {fileID: 1318862478}
   - {fileID: 301328291}
@@ -12148,6 +12222,7 @@ MonoBehaviour:
   collierEnemyId: 0
   rigid: {fileID: 0}
   circleCollider: {fileID: 548619237}
+  parryingCollider: {fileID: 1481085157}
   spriteRenderer: {fileID: 0}
 --- !u!114 &2002195007
 MonoBehaviour:

@@ -23,7 +23,8 @@ public class GameKeyboard : MonoBehaviour
         Jump,
         Hook,
         Attack,
-        HookAcceleration
+        HookAcceleration,
+        LeftShift
     }
 
     // µñ¼Å³Ê¸®·Î Å° °ü¸® 
@@ -43,6 +44,7 @@ public class GameKeyboard : MonoBehaviour
         keyMappings[KeyCodeTypes.Hook] = KeyCode.Mouse0;
         keyMappings[KeyCodeTypes.Attack] = KeyCode.Mouse1;
         keyMappings[KeyCodeTypes.HookAcceleration] = KeyCode.LeftShift;        
+        keyMappings[KeyCodeTypes.LeftShift] = KeyCode.LeftShift;        
     }
 
     public KeyCode GetKeyCode( KeyCodeTypes action ) {

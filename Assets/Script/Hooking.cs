@@ -63,6 +63,7 @@ public class Hooking : MonoBehaviour {
         } 
         else if (collision.CompareTag("Enemy")) {                              // Enemy Tag에 충돌 할 때 
             joint2D.enabled = true;
+            distanceJoint2D.enabled = true;
             grappling.isAttach = true;
             grappling.isHookAction = false;
 

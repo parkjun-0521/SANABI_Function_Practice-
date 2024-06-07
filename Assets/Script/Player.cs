@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     // 컴포넌트
     public Rigidbody2D rigid;
     public CircleCollider2D circleCollider;
+    public CircleCollider2D parryingCollider;
     public SpriteRenderer spriteRenderer;
 
     Camera mainCamera;
@@ -64,9 +65,10 @@ public class Player : MonoBehaviour
     {
         PlayerMove();
         PlayerHook();
-        PlayerJupm();
+        PlayerJump();
         PlayerWallMove();
         PlayerAttack();
+        PlayerParrying();
         // MAX 속도 
         Vector2 velocity = rigid.velocity;
         if (velocity.magnitude > maxSpeed) {
@@ -219,7 +221,7 @@ public class Player : MonoBehaviour
         afterImage.particle.gameObject.SetActive(false);
     }
 
-    void PlayerJupm() {
+    void PlayerJump() {
         if (Input.GetKeyDown(Keyboard.GetKeyCode(KeyCodeTypes.Jump)) && !isJumpCheck) {
             rigid.velocity = Vector2.zero;
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
@@ -292,6 +294,18 @@ public class Player : MonoBehaviour
             }
             grappling.hook.GetComponent<Hooking>().joint2D.distance = 0f;
         }
+    }
+
+    // 쉬프트 누르면 공격 튕겨내기 
+    void PlayerParrying() {
+        if (Input.GetKeyDown(Keyboard.GetKeyCode(KeyCodeTypes.LeftShift)) && !grappling.isAttach && !isAttack && !parryingCollider.enabled) {
+            parryingCollider.enabled = true;
+            StartCoroutine(ParryingOff());
+        }
+    }
+    IEnumerator ParryingOff() {
+        yield return new WaitForSeconds(1f);
+        parryingCollider.enabled = false;
     }
 
     void OnTriggerEnter2D( Collider2D collision ) {

@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LongDistance : MonoBehaviour
+public class LongDistance : Enemy
 {
     bool isMove;
-
-    public float speed;
-    public float curDelay;
-    public float maxDelay;
 
     public float radius = 10.0f;
     public LayerMask layerMask;
@@ -58,14 +54,36 @@ public class LongDistance : MonoBehaviour
         if (Physics2D.CircleCast(transform.position, radius, Vector2.up, radius, layerMask)) {
             // 이동 정지 
             isMove = false;
+            // 회전 
+            Vector3 dir = target.position - transform.position;
+            if (dir.x > 0) {
+                spriteRenderer.flipX = false;
+            }
+            else {
+                spriteRenderer.flipX = true;
+            }
             // 공격 
             if (curDelay > maxDelay) {
-                GameObject bullet = GameManager.instance.poolManager.GetObject(1);
-                bullet.transform.position = transform.position;
-                Vector3 direction = (target.transform.position - transform.position).normalized;
-                bullet.GetComponent<EnemyBullet>().Initialize(direction);
+                StartCoroutine(FireBulletsWithDelay());
                 curDelay = 0;
             }
+        }
+    }
+    IEnumerator FireBulletsWithDelay() {
+        for (int i = 0; i < 5; i++) {
+            GameObject bullet = GameManager.instance.poolManager.GetObject(1);
+            bullet.transform.position = transform.position;
+            Vector3 direction = (target.transform.position - transform.position).normalized;
+            bullet.GetComponent<EnemyBullet>().trailRenderer.enabled = true;
+
+            // 랜덤 각도를 계산 (여기서는 -15도에서 +15도 사이의 각도)
+            float randomAngle = Random.Range(-20f, 20f);
+
+            // 방향 벡터를 회전시킴
+            direction = Quaternion.Euler(0, 0, randomAngle) * direction;
+
+            bullet.GetComponent<EnemyBullet>().Initialize(direction);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

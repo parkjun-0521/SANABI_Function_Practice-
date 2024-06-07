@@ -67,6 +67,7 @@ public class SniperEnemy : Enemy
         GameObject bullet = GameManager.instance.poolManager.GetObject(0);
         bullet.transform.position = transform.position;
         Vector3 direction = (target.transform.position - transform.position).normalized;
+        bullet.GetComponent<EnemyBullet>().trailRenderer.enabled = true;
         bullet.GetComponent<EnemyBullet>().Initialize(direction);
     }
 }
