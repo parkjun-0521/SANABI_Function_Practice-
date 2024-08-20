@@ -102,8 +102,8 @@ public class GrapplingHook : MonoBehaviour {
 
                 // 변수 초기화 
                 isAttach = false;
-                isHookAction = false;
                 isLineMax = false;
+                isHookAction = false;
                 
                 // 로프 비활성화  
                 hook.GetComponent<Hooking>().joint2D.enabled = false;
@@ -176,8 +176,8 @@ public class GrapplingHook : MonoBehaviour {
     }
 
     private void OnCollisionExit2D( Collision2D collision ) {
-        // 로프가 걸려있고 지면에 닿은 상태일 때 
-        if (collision.gameObject.CompareTag("Ground") && isAttach) {
+        // 로프가 걸려있고 지면에 닿지 않은 상태 
+        if ((collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Enemy"))) {
             hook.GetComponent<Hooking>().distanceJoint2D.enabled = true;
             // 로프의 거리를 현재 거리로 변경 
             hook.GetComponent<Hooking>().distanceJoint2D.distance = hook.GetComponent<Hooking>().joint2D.distance;
