@@ -15,3 +15,5 @@
 - 2024.05.17 ~ 2024.06.04
 
 ## 구현 기능 
+
+<img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/개발일정.PNG" width="100%" height="50%" />
