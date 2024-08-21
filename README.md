@@ -16,4 +16,4 @@
 
 ## 구현 기능 
 
-<img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/개발일정.PNG" width="100%" height="50%" />
+<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/%EB%A1%9C%ED%94%84%EC%9D%B4%EB%8F%99%EB%B0%8F%EB%B0%98%EB%8F%99.gif" width="100%" height="50%" />
