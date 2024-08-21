@@ -3,7 +3,7 @@
 ## 개요 
 
 - 특정 로프액션 게임을 보고 만들어보고 싶다는 생각에 만들어보게 되었습니다.
-- 게임을 처음부터 구현하지 않고 로프액션에 필요한 기능만 구현하였습니다.
+- 로프액션에 필요한 기능을 중점으로 구현하였습니다.
 
 ## 개발 스택 
 
@@ -52,10 +52,24 @@
 
 <img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/벽타기.gif" width="50%" height="50%" />
 
+- 플레이어가 바라보는 방향으로 하여 콜라이더를 생성하여 해당 콜라이더에 벽이 충돌하면 중력값을 조절하여 벽을 올라갈 수 있도록 구현하였습니다.
+- 벽을 탈 때 반대방향을 보거나 점프를 할 시 중력값을 원래상태로 바꾸며 벽타기가 안되도록 구현하였습니다. 
+
 ### 로프 구현 
 
 <img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/조인트.png" width="30%" height="30%" />
 
+- 플레이어가 로프를 발사할 때의 로프의 inspactor 화면입니다.
+- Distance Joint와 Spring Joint를 사용였습니다.
+- Distance Joint는 벽과 훅을 이어주기위해 사용하였고
+- Spring Joint는 플레이어가 훅을 걸었을 때도 이동할 수 있도록 즉, 로프의 길이가 조절 될 수 있도록 구현하기 위해 두개의 joint를 사용하였습니다.
+- [훅 Code](https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Assets/Script/Hooking.cs)
+
 ### 카메라 
 
 <img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/시네머신.png" width="30%" height="30%" />
+
+- 시네머신 카메라의 확장기능으로 Cinemachine Confiner 를 사용하여 카메라의 범위를 구현하였습니다.
+- Cinemachine Confiner 같은 경우 Ploygon Collider를 사용하여 외곽 테두리를 그려주게 되면 카메라의 반경이 해당 테두리를 벗어나지 못하도록 해주는 효과가 있습니다.
+- 따라서 Ploygon Collider를 사용하여 외곽 테두리를 그려주고 카메라가 해당 범위를 벗어나지 못하도록 하기 위해 Cinemachine Confiner 컴포넌트를 사용하였습니다. 
+
