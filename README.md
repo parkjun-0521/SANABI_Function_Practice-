@@ -16,4 +16,11 @@
 
 ## 구현 기능 
 
-<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/%EB%A1%9C%ED%94%84%EC%9D%B4%EB%8F%99%EB%B0%8F%EB%B0%98%EB%8F%99.gif" width="100%" height="50%" />
+<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/로프이동및반동.gif" width="50%" height="50%" />
+<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/로프가속.gif" width="50%" height="50%" />
+
+<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/로프공격.gif" width="50%" height="50%" />
+<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/이동오브젝트로프.gif" width="50%" height="50%" />
+<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/벽타기.gif" width="50%" height="50%" />
+<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/조인트.png" width="30%" height="30%" />
+<img src="https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Image/시네머신.png" width="30%" height="30%" />
