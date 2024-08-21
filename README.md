@@ -23,6 +23,7 @@
 
 - 지형 오브젝트에 마우스로 로프를 발사한 후 방향키를 사용하여 반동을 줄 수 있도록 구현했습니다.
 - 방향키를 누르고 Shift를 누르면 Addforce()를 사용하여 순간 가속을 하여 좀더 멀리 날아가도록 구현했습니다.
+- 순간 가속 이후 등장하게 되는 잔상 효과는 파티클로 구현하였습니다. [잔상 효과 Code](https://github.com/parkjun-0521/SANABI_Function_Practice-/blob/master/Assets/Script/AfterImage.cs)
 - 로프를 걸고 윗방향키와 Shift를 누르면 위로 순간적으로 이동할 수 있도록 구현하였습니다.
 - 로프를 걸었을 때 아래 방향키로 로프의 거리를 조절 할 수 있도록 구현하였습니다. 
 
